@@ -2,13 +2,13 @@
 
 // 1: NPM dependencies.
 var express = require('express'),
-    bodyParser = require('body-parser'),
-    morgan = require('morgan'),
-    sequelize = require('sequelize'),
-    passport = require('passport'),
-    path = require('path'),
-    cors = require('cors'),
-    jwt = require('jsonwebtoken');
+  bodyParser = require('body-parser'),
+  morgan = require('morgan'),
+  sequelize = require('sequelize'),
+  passport = require('passport'),
+  path = require('path'),
+  cors = require('cors'),
+  jwt = require('jsonwebtoken');
 
 // 2: App related modules.
 var hookJWTStrategy = require('./services/passportStrategy');
