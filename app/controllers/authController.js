@@ -12,6 +12,7 @@ var AuthController = {};
 
 // Register a user.
 AuthController.signUp = function(req, res) {
+  console.log(req.body.email);
   if(!req.body.email || !req.body.username || !req.body.password) {
     res.json({ message: 'Please provide an email, username, and password.' });
   } else {
@@ -23,6 +24,7 @@ AuthController.signUp = function(req, res) {
       };
 
       return User.create(newUser).then(function() {
+        res.redirect('api/chat');
         res.status(201).json({ message: 'Account created!' });
       });
     }).catch(function(error) {
@@ -51,7 +53,7 @@ AuthController.authenticateUser = function(req, res) {
               { expiresIn: '30m' }
             );
 
-            res.json({ success: true, token: 'JWT ' + token });
+            res.redirect('../api/chat', token);
           } else {
             res.status(404).json({ message: 'Login failed!' });
           }

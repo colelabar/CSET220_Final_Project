@@ -32,6 +32,15 @@ hookJWTStrategy(passport);
 // 7: Set the static files location.
 app.use(express.static(__dirname + '../../public'));
 
+// Routing
+app.get('/signup', function(req, res) {
+    res.sendFile(path.join(__dirname + '../../public/app/views/signup.html'));
+});
+
+app.get('/login', function(req, res) {
+    res.sendFile(path.join(__dirname + '../../public/app/views/login.html'));
+});
+
 // Bundle API routes.
 app.use('/api', require('./routes/api')(passport));
 
@@ -40,11 +49,11 @@ app.use(cors())
 
 app.get('/products/:id', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
-})
+});
 
 app.listen(8081, function () {
   console.log('CORS-enabled web server listening on port 8081')
-})
+});
 
 // Catch all route.
 app.get('*', function(req, res) {
