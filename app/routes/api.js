@@ -14,9 +14,6 @@ var APIRoutes = function(passport) {
 
   router.post('/login', AuthController.authenticateUser);
 
-  router.get('/chat', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.user,
-  UserController.index));
-
   router.get('/profile', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.user, UserController.index));
 
   router.get('/admin', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.admin, AdminController.index));
