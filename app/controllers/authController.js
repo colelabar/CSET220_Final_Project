@@ -53,7 +53,7 @@ AuthController.authenticateUser = function(req, res) {
               { expiresIn: '30m' }
             );
 
-            res.redirect('../api/chat', token);
+            res.redirect('../api/chat');
           } else {
             res.status(404).json({ message: 'Login failed!' });
           }
