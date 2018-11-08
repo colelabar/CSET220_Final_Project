@@ -1,17 +1,40 @@
 <!-- <!DOCTYPE html> -->
 <html>
-<form id="loginForm" action="api/login" method="post">
-<h2 class="form-auth-heading">Login</h2>
-<label class="sr-only" for="username">Username</label>
-<input id="username" name="username" class="form-control" required="" type="text" autofocus="" placeholder="Username" />
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Lato|Righteous" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/slog.css">
+</head>
+<body class="slogBody">
+  <video autoplay muted loop class="homeVideo">
+    <source src="/assets/images/triangle-stock.mp4" type="video/mp4">
+  </video>
+  <div class="mainForm">
+    <form id="loginForm" action="api/login" method="post">
+      <div class="titleCon">
+        <h2 class="form-auth-heading formTitle">Login</h2>
+      </div>
+      <div class="formContainer">
 
-<label class="sr-only" for="password">Password</label>
-<input id="password" name="password" class="form-control" required="" type="password" placeholder="Password" />
+        <div class="formFieldCon">
+          <label class="sr-only formLabel" for="username">Username</label>
+          <input id="username" name="username" class="form-control formField" required="" type="text" autofocus="" placeholder="Username" />
+        </div>
 
-<input id="submit" class="btn btn-lg btn-primary btn-block" type="submit"></input>
-</form>
+        <div class="formFieldCon">
+          <label class="sr-only formLabel" for="password">Password</label>
+          <input id="password" name="password" class="form-control formField" required="" type="password" placeholder="Password" />
+        </div>
 
-<p>Need an account? <a href="/signup">Signup</a> instead!
-</p>
+        <div class="submitCon">
+          <input id="submit" class="submitButton" type="submit"></input>
+        </div>
+      </div>
+    </form>
+    <div class="messageCon">
+      <p>Need an account? <a href="/signup">Signup</a> instead!
+      </p>
+    </div>
+  </div>
+</body>
 
 </html>

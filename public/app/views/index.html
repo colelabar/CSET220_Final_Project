@@ -3,19 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Secure Chat Application</title>
+    <title>Retro-Chat</title>
     <meta name="description" content="This is a secure chat application built in Node, Express, and MySQL">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Righteous" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/slog.css">
   </head>
-  <body>
-    <h1>Secure Chat</h1>
-    <div>
-      <p>Welcome to the chat application! In order to access the chat room, you must login or signup.
+  <body class="slogBody">
+    <video autoplay muted loop class="homeVideo">
+      <source src="/assets/images/triangle-stock.mp4" type="video/mp4">
+    </video>
+    <div class="homeTitleCon">
+      <h1 class="formTitle">RETRO-CHAT</h1>
+    </div>
+    <div class="homeImageCon">
+      <img class="homeImage" src="/assets/images/laying_disco.jpg" alt="Two people laying with disco ball">
+      </img>
+    </div>
+    <div class="homeMessageCon">
+      <p>Welcome to the funkiest chat platform this side of the Milky Way
       </p>
-      <div>
-        <a href="/login">LOGIN</a>
-        <a href="/signup">SIGNUP</a>
+      <div class="homeButtonCon">
+        <a class="homeButton" href="/login">LOGIN</a>
+        <a class="homeButton" href="/signup">SIGNUP</a>
       </div>
     </div>
 
