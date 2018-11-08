@@ -24,8 +24,8 @@ AuthController.signUp = function(req, res) {
       };
 
       return User.create(newUser).then(function() {
-        res.redirect('api/chat');
-        res.status(201).json({ message: 'Account created!' });
+        res.redirect('/chat');
+        // res.status(201).json({ message: 'Account created!' });
       });
     }).catch(function(error) {
       res.status(403).json({ message: 'Username or email already exists!' });
