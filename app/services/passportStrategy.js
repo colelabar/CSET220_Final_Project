@@ -11,7 +11,7 @@ function hookJWTStrategy(passport) {
   var options = {};
 
   options.secretOrKey = config.keys.secret;
-  options.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+  options.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
   options.ignoreExpiration = false;
 
   passport.use(new JWTStrategy(options, function(JWTPayload, callback) {
@@ -20,10 +20,11 @@ function hookJWTStrategy(passport) {
         if(!user) {
           callback(null, false);
           return;
-        }
+        } else {
 
         callback(null, user);
-      });
+      }
+    });
   }));
 }
 

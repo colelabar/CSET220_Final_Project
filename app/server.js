@@ -8,10 +8,15 @@ var express = require('express'),
   passport = require('passport'),
   path = require('path'),
   cors = require('cors'),
-  jwt = require('jsonwebtoken');
+  jwt = require('jsonwebtoken'),
+  cookieParser = require('cookie-parser');
+
+
 
 // 2: App related modules.
 var hookJWTStrategy = require('./services/passportStrategy');
+
+var favicon = require('serve-favicon');
 
 // 3: Initializations.
 var app = express();
@@ -26,19 +31,22 @@ var pusher = new Pusher({
   encrypted: true
 });
 
-pusher.trigger('my-channel', 'my-event', {
-  "message": "hello world"
-});
-
 // 4: Parse as urlencoded and json.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Set up the favicon route
+app.use(favicon(__dirname + '/../favicon.ico'));
+
 // 5: Hook up the HTTP logger.
 app.use(morgan('dev'));
 
+// Setup cookie parser
+app.use(cookieParser());
+
 // 6: Hook up Passport.
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Hook the passport JWT strategy.
 hookJWTStrategy(passport);
@@ -48,16 +56,16 @@ app.use(express.static(__dirname + '../../public'));
 
 // Routing
 app.get('/signup', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/signup.html'));
+  res.sendFile(path.join(__dirname + '../../public/app/views/signup.html'));
 });
 
 app.get('/login', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/login.html'));
+  res.sendFile(path.join(__dirname + '../../public/app/views/login.html'));
 });
 
-app.get('/chat', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/chat.html'));
-});
+// app.get('/chat', function(req, res) {
+//     res.sendFile(path.join(__dirname + '../../public/app/views/chat.html'));
+// });
 
 app.post('/pusher/auth', function(req, res) {
     var socketId = req.body.socket_id;
@@ -76,11 +84,15 @@ app.post('/pusher/auth', function(req, res) {
 // Bundle API routes.
 app.use('/api', require('./routes/api')(passport));
 
+app.get('/api/chat', function(req, res) {
+  res.sendFile(path.join(__dirname + '../../public/app/views/chat.html'));
+});
+
 // enable the use of CORS
 app.use(cors())
 
 app.get('/products/:id', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
+  res.json({msg: 'This is CORS-enabled for all origins!'});
 });
 
 app.listen(8081, function () {
@@ -89,10 +101,10 @@ app.listen(8081, function () {
 
 // Catch all route.
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
+  res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
 });
 
 // 9: Start the server.
 app.listen('8080', function() {
-    console.log('Magic happens at http://localhost:8080/! We are all now doomed!');
+  console.log('Magic happens at http://localhost:8080/! We are all now doomed!');
 });

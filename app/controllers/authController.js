@@ -1,7 +1,10 @@
 'use strict';
 
 var jwt = require('jsonwebtoken'),
-bcrypt = require('bcryptjs');
+http = require('http'),
+bcrypt = require('bcryptjs'),
+cookieParser = require('cookie-parser');
+
 
 var config = require('../config'),
 db = require('../services/database'),
@@ -24,7 +27,7 @@ AuthController.signUp = function(req, res) {
       };
 
       return User.create(newUser).then(function() {
-        res.redirect('/chat');
+        res.redirect('/login');
         // res.status(201).json({ message: 'Account created!' });
       });
     }).catch(function(error) {
@@ -33,7 +36,7 @@ AuthController.signUp = function(req, res) {
   }
 }
 
-AuthController.authenticateUser = function(req, res) {
+AuthController.authenticateUser = function(req, res, next) {
   if(!req.body.username || !req.body.password) {
     res.status(404).json({ message: 'Username and password are needed!' });
   } else {
@@ -47,13 +50,16 @@ AuthController.authenticateUser = function(req, res) {
       } else {
         bcrypt.compare(password, user.password, function(error, isMatch) {
           if(isMatch && !error) {
-            var token = jwt.sign(
+            const token = jwt.sign(
               { username: user.username },
               config.keys.secret,
               { expiresIn: '30m' }
             );
 
-            res.redirect('/chat');
+            res.cookie('auth_token', token);
+            next()
+            // console.log(req.cookies);
+            // res.redirect('/api/chat');
           } else {
             res.status(404).json({ message: 'Login failed!' });
           }
@@ -62,6 +68,14 @@ AuthController.authenticateUser = function(req, res) {
     }).catch(function(error) {
       res.status(500).json({ message: 'There was an error!' });
     });
+  }
+}
+
+AuthController.checktoken = function(req, res) {
+  if(req.cookie.auth_token == res.set-cookie.auth_token) {
+    return res.status(200).json({ message: 'Its working!' });
+  } else {
+    res.status(404).json({ message: 'Its not working' });
   }
 }
 
