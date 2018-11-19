@@ -73,6 +73,12 @@
     color: black;
   }
 
+  .btn-warning:active {
+    background-color: #FA6734;
+    border: 1px solid #E4C44C; /* Yellow color */
+    color: black;
+  }
+
   .body-panel
   {
     overflow-y: scroll;

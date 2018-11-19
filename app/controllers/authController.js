@@ -55,13 +55,13 @@ AuthController.authenticateUser = function(req, res, next) {
               config.keys.secret,
               { expiresIn: '30m' }
             );
-
-            res.cookie('auth_token', token);
-            next()
-            // console.log(req.cookies);
-            // res.redirect('/api/chat');
+            user.save().then(function(){
+              res.cookie('auth_token', token);
+              return res.json({ user: User.toAuthJSON});
+            }).catch(next);
+            // res.status(200).send('Everything is alright');
           } else {
-            res.status(404).json({ message: 'Login failed!' });
+            res.redirect('/login');
           }
         });
       }
@@ -71,12 +71,35 @@ AuthController.authenticateUser = function(req, res, next) {
   }
 }
 
-AuthController.checktoken = function(req, res) {
-  if(req.cookie.auth_token == res.set-cookie.auth_token) {
-    return res.status(200).json({ message: 'Its working!' });
+AuthController.verifyToken = function(req, res, next) {
+  if(!req.cookies.auth_token) {
+    console.log('no token');
+    res.redirect('/401');
   } else {
-    res.status(404).json({ message: 'Its not working' });
+    jwt.verify(req.cookies.auth_token, config.keys.secret, (err, decoded)=>{
+      if(err){
+        res.status(403).json({
+          message:"Wrong Token"
+      });
+      } else {
+        req.decoded=decoded;
+        res.set({username: decoded.username})
+        console.log(req.decoded);
+        console.log(req.decoded.username);
+        next()
+      }
+    });
   }
+}
+
+AuthController.ensureAuthenticated = function(req, res, next) {
+  if (!(req.cookies.auth_token && req.body.username)) {
+    res.end;
+    // res.redirect('/login');
+  } else {
+    console.log('it made it to the auth check');
+  }
+  next()
 }
 
 

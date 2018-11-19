@@ -11,7 +11,7 @@ function hookJWTStrategy(passport) {
   var options = {};
 
   options.secretOrKey = config.keys.secret;
-  options.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
+  options.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('JWT');
   options.ignoreExpiration = false;
 
   passport.use(new JWTStrategy(options, function(JWTPayload, callback) {

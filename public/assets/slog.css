@@ -195,3 +195,15 @@
   font-size: 20px;
   font-family: 'Righteous', cursive;
 }
+
+.center {
+  text-align: center;
+}
+
+.chatUsername {
+  margin-left: 5px;
+  font-size: 25px;
+  font-family: 'Righteous', cursive;
+  letter-spacing: 3px;
+  color: black;
+}

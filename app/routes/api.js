@@ -12,15 +12,15 @@ var APIRoutes = function(passport) {
 
   router.post('/signup', AuthController.signUp);
 
-  router.post('/login', AuthController.authenticateUser, function(req, res) {
-    res.redirect('/api/chat')
-  });
+  router.post('/login', AuthController.authenticateUser);
 
-  router.get('/api/chat', passport.authenticate('jwt', { session: true }), allowOnly(config.accessLevels.user, UserController.index));
+  router.get('/chat', AuthController.verifyToken);
 
-  router.get('/profile', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.user, UserController.index));
+  router.get('/profile', passport.authenticate('jwt', { session: true }), allowOnly(config.accessLevels.user,
+  UserController.index));
 
-  router.get('/admin', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.admin, AdminController.index));
+  router.get('/admin', passport.authenticate('jwt', { session: true }), allowOnly(config.accessLevels.admin,
+  AdminController.index));
 
 
 

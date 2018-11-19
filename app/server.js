@@ -5,6 +5,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
   sequelize = require('sequelize'),
+  session = require('express-session'),
   passport = require('passport'),
   path = require('path'),
   cors = require('cors'),
@@ -15,7 +16,7 @@ var express = require('express'),
 
 // 2: App related modules.
 var hookJWTStrategy = require('./services/passportStrategy');
-
+var config = require('./config');
 var favicon = require('serve-favicon');
 
 // 3: Initializations.
@@ -45,6 +46,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 // 6: Hook up Passport.
+app.use(session({ resave: true, saveUninitialized: true,  secret: config.keys.secret }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -55,12 +57,20 @@ hookJWTStrategy(passport);
 app.use(express.static(__dirname + '../../public'));
 
 // Routing
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
+});
+
 app.get('/signup', function(req, res) {
   res.sendFile(path.join(__dirname + '../../public/app/views/signup.html'));
 });
 
 app.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname + '../../public/app/views/login.html'));
+});
+
+app.get('/401', function(req, res) {
+res.sendFile(path.join(__dirname + '../../public/app/views/401.html'));
 });
 
 // app.get('/chat', function(req, res) {
@@ -101,7 +111,9 @@ app.listen(8081, function () {
 
 // Catch all route.
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
+  res.location('/');
+  res.end();
+  // res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
 });
 
 // 9: Start the server.

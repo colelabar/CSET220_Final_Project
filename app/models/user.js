@@ -79,4 +79,11 @@ function hashPassword(user) {
   }
 }
 
+var toAuthJSON = function(){
+    return {
+        username: this.username,
+        email: this.email
+    };
+};
+
 module.exports = UserModel;
