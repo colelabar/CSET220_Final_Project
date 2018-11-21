@@ -8,6 +8,8 @@ var config = require('../config'),
   UserController = require('../controllers/userController'),
   AdminController = require('../controllers/adminController');
 
+  // Routes for the api and their functionality
+
 var APIRoutes = function(passport) {
 
   router.post('/signup', AuthController.signUp);
@@ -16,10 +18,7 @@ var APIRoutes = function(passport) {
 
   router.get('/chat', AuthController.verifyToken);
 
-  router.get('/profile', passport.authenticate('jwt', { session: true }), allowOnly(config.accessLevels.user,
-  UserController.index));
-
-  router.get('/admin', passport.authenticate('jwt', { session: true }), allowOnly(config.accessLevels.admin,
+  router.get('/admin', AuthController.verifyToken, allowOnly(config.accessLevels.admin,
   AdminController.index));
 
 

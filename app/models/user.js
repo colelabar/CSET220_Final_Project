@@ -1,4 +1,4 @@
-// The User model.
+// The User model
 'use strict';
 
 var Sequelize = require('sequelize'),
@@ -7,7 +7,7 @@ bcrypt = require('bcryptjs');
 var config = require('../config'),
 db = require('../services/database');
 
-// 1: The model schema.
+// The model schema
 var modelDefinition = {
   id: {
     type: Sequelize.UUID,
@@ -46,7 +46,7 @@ var modelDefinition = {
   }
 };
 
-// 2: The model options.
+// The model options
 var modelOptions = {
   instanceMethods: {
     comparePasswords: comparePasswords
@@ -56,7 +56,7 @@ var modelOptions = {
   }
 };
 
-// 3: Define the User model.
+// Define the User model
 var UserModel = db.define('user', modelDefinition, modelOptions);
 
 // Compares two passwords.
@@ -78,6 +78,8 @@ function hashPassword(user) {
     });
   }
 }
+
+// Sets the user params to a JSON response 
 
 var toAuthJSON = function(){
     return {

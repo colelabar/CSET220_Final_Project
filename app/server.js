@@ -1,6 +1,6 @@
 'use strict';
 
-// 1: NPM dependencies.
+// NPM dependencies
 var express = require('express'),
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
@@ -14,12 +14,12 @@ var express = require('express'),
 
 
 
-// 2: App related modules.
+// App related modules
 var hookJWTStrategy = require('./services/passportStrategy');
 var config = require('./config');
 var favicon = require('serve-favicon');
 
-// 3: Initializations.
+// Initializations
 var app = express();
 
 var Pusher = require('pusher');
@@ -32,28 +32,28 @@ var pusher = new Pusher({
   encrypted: false
 });
 
-// 4: Parse as urlencoded and json.
+// Parse as urlencoded and json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Set up the favicon route
 app.use(favicon(__dirname + '/../favicon.ico'));
 
-// 5: Hook up the HTTP logger.
+// Hook up the HTTP logger
 app.use(morgan('dev'));
 
 // Setup cookie parser
 app.use(cookieParser());
 
-// 6: Hook up Passport.
+// Hook up Passport
 app.use(session({ resave: true, saveUninitialized: true,  secret: config.keys.secret }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Hook the passport JWT strategy.
+// Hook the passport JWT strategy
 hookJWTStrategy(passport);
 
-// 7: Set the static files location.
+// Set the static files location
 app.use(express.static(__dirname + '../../public'));
 
 // Routing
@@ -98,6 +98,10 @@ app.get('/api/chat', function(req, res) {
   res.sendFile(path.join(__dirname + '../../public/app/views/chat.html'));
 });
 
+app.get('/api/admin', function(req, res) {
+  res.sendFile(path.join(__dirname + '../../public/app/views/admin.html'));
+});
+
 // enable the use of CORS
 app.use(cors())
 
@@ -113,5 +117,4 @@ app.listen('8080', function () {
 app.get('*', function(req, res) {
   res.location('/');
   res.end();
-  // res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
 });

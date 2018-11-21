@@ -10,10 +10,10 @@ var config = require('../config'),
 db = require('../services/database'),
 User = require('../models/user');
 
-// The authentication controller.
+// The authentication controller
 var AuthController = {};
 
-// Register a user.
+// Register a user by passing their form inputs to the db and returns them to the login screen to log in
 AuthController.signUp = function(req, res) {
   console.log(req.body.email);
   if(!req.body.email || !req.body.username || !req.body.password) {
@@ -35,6 +35,8 @@ AuthController.signUp = function(req, res) {
     });
   }
 }
+
+// function call when a user logs in, finds the user and signs them with a JWT if their credentials are correct. Returns erros if user is not found
 
 AuthController.authenticateUser = function(req, res, next) {
   if(!req.body.username || !req.body.password) {
@@ -71,6 +73,8 @@ AuthController.authenticateUser = function(req, res, next) {
   }
 }
 
+// Token check to ensure the user has logged in and been assigned a valid token
+
 AuthController.verifyToken = function(req, res, next) {
   if(!req.cookies.auth_token) {
     console.log('no token');
@@ -91,6 +95,8 @@ AuthController.verifyToken = function(req, res, next) {
     });
   }
 }
+
+// Extra auth check, fallback in the event that verifyToken doesn't work
 
 AuthController.ensureAuthenticated = function(req, res, next) {
   if (!(req.cookies.auth_token && req.body.username)) {

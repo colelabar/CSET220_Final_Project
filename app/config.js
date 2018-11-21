@@ -3,6 +3,8 @@
 
 var config = module.exports;
 
+// Configurations settings for the database credentials
+
 config.db = {
   user: 'root',
   password: '',
@@ -18,6 +20,8 @@ config.db.details = {
 config.keys = {
   secret: 'keyboardcat'
 };
+
+// Config settings for the user roles and access levels
 
 var userRoles = config.userRoles = {
     guest: 1,    // ...001
