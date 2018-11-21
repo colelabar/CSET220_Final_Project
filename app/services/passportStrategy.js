@@ -14,6 +14,8 @@ function hookJWTStrategy(passport) {
   options.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('JWT');
   options.ignoreExpiration = false;
 
+  // Find a user matching the username and return that user back to the AuthController
+
   passport.use(new JWTStrategy(options, function(JWTPayload, callback) {
     User.findOne({ where: { username: JWTPayload.username } })
       .then(function(user) {
