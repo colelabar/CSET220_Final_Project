@@ -134,18 +134,21 @@
   border: 1px solid black;
   text-decoration: none;
   border-radius: 5px;
+  color: black;
 }
 
 .submitButton:hover {
   cursor: pointer;
-  background-color: #E6853D; /* Orange-ish color */
-  border: 1px solid #E4C44C; /* Yellow color */
+  background-color: #E4C44C; /* Yellow color */
+  background-image: none;
+  border: 1px solid #E6853D;
 }
 
 .homeButton:hover {
   cursor: pointer;
-  background-color: #E6853D;
-  border: 1px solid #E4C44C; /* Yellow color */
+  background-color: #E4C44C; /* Yellow color */
+  background-image: none;
+  border: 1px solid #E6853D;
 }
 
 .homeButton:visited {
@@ -206,4 +209,8 @@
   font-family: 'Righteous', cursive;
   letter-spacing: 3px;
   color: black;
+}
+
+.buttonPointer {
+  cursor: pointer;
 }
