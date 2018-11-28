@@ -77,10 +77,6 @@ app.get('/403', function(req, res) {
 res.sendFile(path.join(__dirname + '../../public/app/views/403.html'));
 });
 
-// app.get('/chat', function(req, res) {
-//     res.sendFile(path.join(__dirname + '../../public/app/views/chat.html'));
-// });
-
 app.post('/pusher/auth', function(req, res) {
     var socketId = req.body.socket_id;
     var channel = req.body.channel_name;
