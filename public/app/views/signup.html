@@ -1,20 +1,48 @@
 <!-- <!DOCTYPE html> -->
 <html>
-<form id="signupForm" action="api/signup" method="post">
-<h2 class="form-auth-heading">Signup</h2>
-<label class="sr-only" for="email">Email</label>
-<input id="email" name="email" class="form-control" required="" type="text" autofocus="" placeholder="Email" />
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Lato|Righteous" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/slog.css">
+  <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+  <script src="../assets/log-sign-handler.js"></script>
+</head>
+<body class="slogBody">
+  <video autoplay muted loop class="homeVideo">
+    <source src="/assets/images/triangle-stock.mp4" type="video/mp4">
+  </video>
+  <div class="errorBox" id="errorBox">
+  </div>
+  <div class="mainForm">
+    <form id="signupForm" action="api/signup" method="post">
+      <div class="titleCon">
+        <h2 class="form-auth-heading formTitle">Signup</h2>
+      </div>
+      <div class="formContainer">
+        <div class="formFieldCon">
+          <label class="sr-only formLabel" for="email">Email</label>
+        <input id="email" name="email" class="form-control formField" required="" type="text" autofocus="" placeholder="Email" />
+        </div>
 
-<label class="sr-only" for="username">Username</label>
-<input id="username" name="username" class="form-control" required="" type="text" autofocus="" placeholder="Username" />
+        <div class="formFieldCon">
+          <label class="sr-only formLabel" for="username">Username</label>
+          <input id="username" name="username" class="form-control formField" required="" type="text" autofocus="" placeholder="Username" />
+        </div>
 
-<label class="sr-only" for="password">Password</label>
-<input id="password" name="password" class="form-control" required="" type="password" placeholder="Password" />
+        <div class="formFieldCon">
+          <label class="sr-only formLabel" for="password">Password</label>
+          <input id="password" name="password" class="form-control formField" required="" type="password" placeholder="Password" />
+        </div>
 
-<input id="submit" class="btn btn-lg btn-primary btn-block" type="submit"></input>
-</form>
-
-<p>Have an account already? <a href="/login">Login</a> instead!
-</p>
+        <div class="submitCon">
+          <input id="submit" class="submitButton" type="submit"></input>
+        </div>
+      </div>
+    </form>
+    <div class="messageCon">
+      <p>Have an account already? <a href="/login">Login</a> instead!
+      </p>
+    </div>
+  </div>
+</body>
 
 </html>

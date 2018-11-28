@@ -1,62 +1,80 @@
 'use strict';
 
-// 1: NPM dependencies.
+// NPM dependencies
 var express = require('express'),
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
   sequelize = require('sequelize'),
+  session = require('express-session'),
   passport = require('passport'),
   path = require('path'),
   cors = require('cors'),
-  jwt = require('jsonwebtoken');
+  jwt = require('jsonwebtoken'),
+  cookieParser = require('cookie-parser');
 
-// 2: App related modules.
+
+
+// App related modules
 var hookJWTStrategy = require('./services/passportStrategy');
+var config = require('./config');
+var favicon = require('serve-favicon');
 
-// 3: Initializations.
+// Initializations
 var app = express();
 
 var Pusher = require('pusher');
 
 var pusher = new Pusher({
-  appId: '625233',
-  key: '7dfe498ad10368e9b594',
-  secret: '55943428ea9c985eaed2',
-  cluster: 'us2',
-  encrypted: true
+  appId: "625233",
+  key: "a19df17ab917f69b30da",
+  secret: "af5072bbfd6a37a39df7",
+  cluster: "us2",
+  encrypted: false
 });
 
-pusher.trigger('my-channel', 'my-event', {
-  "message": "hello world"
-});
-
-// 4: Parse as urlencoded and json.
+// Parse as urlencoded and json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// 5: Hook up the HTTP logger.
+// Set up the favicon route
+app.use(favicon(__dirname + '/../favicon.ico'));
+
+// Hook up the HTTP logger
 app.use(morgan('dev'));
 
-// 6: Hook up Passport.
-app.use(passport.initialize());
+// Setup cookie parser
+app.use(cookieParser());
 
-// Hook the passport JWT strategy.
+// Hook up Passport
+app.use(session({ resave: true, saveUninitialized: true,  secret: config.keys.secret }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Hook the passport JWT strategy
 hookJWTStrategy(passport);
 
-// 7: Set the static files location.
+// Set the static files location
 app.use(express.static(__dirname + '../../public'));
 
 // Routing
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
+});
+
 app.get('/signup', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/signup.html'));
+  res.sendFile(path.join(__dirname + '../../public/app/views/signup.html'));
 });
 
 app.get('/login', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/login.html'));
+  res.sendFile(path.join(__dirname + '../../public/app/views/login.html'));
 });
 
-app.get('/chat', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/chat.html'));
+app.get('/401', function(req, res) {
+res.sendFile(path.join(__dirname + '../../public/app/views/401.html'));
+});
+
+app.get('/403', function(req, res) {
+res.sendFile(path.join(__dirname + '../../public/app/views/403.html'));
 });
 
 app.post('/pusher/auth', function(req, res) {
@@ -69,30 +87,34 @@ app.post('/pusher/auth', function(req, res) {
   app.post('/message', function(req, res) {
     var message = req.body.message;
     var name = req.body.name;
-    pusher.trigger( 'private-chat', 'message-added', { message, name });
+    pusher.trigger( 'private-chat', 'client-message-added', { message, name });
     res.sendStatus(200);
   });
 
 // Bundle API routes.
 app.use('/api', require('./routes/api')(passport));
 
+app.get('/api/chat', function(req, res) {
+  res.sendFile(path.join(__dirname + '../../public/app/views/chat.html'));
+});
+
+app.get('/api/admin', function(req, res) {
+  res.sendFile(path.join(__dirname + '../../public/app/views/admin.html'));
+});
+
 // enable the use of CORS
 app.use(cors())
 
 app.get('/products/:id', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
+  res.json({msg: 'This is CORS-enabled for all origins!'});
 });
 
-app.listen(8081, function () {
-  console.log('CORS-enabled web server listening on port 8081')
+app.listen('8080', function () {
+  console.log('CORS-enabled web server listening on port 8080')
 });
 
 // Catch all route.
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '../../public/app/views/index.html'));
-});
-
-// 9: Start the server.
-app.listen('8080', function() {
-    console.log('Magic happens at http://localhost:8080/! We are all now doomed!');
+  res.location('/');
+  res.end();
 });

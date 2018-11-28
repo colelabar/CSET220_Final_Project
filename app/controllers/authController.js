@@ -1,16 +1,19 @@
 'use strict';
 
 var jwt = require('jsonwebtoken'),
-bcrypt = require('bcryptjs');
+http = require('http'),
+bcrypt = require('bcryptjs'),
+cookieParser = require('cookie-parser');
+
 
 var config = require('../config'),
 db = require('../services/database'),
 User = require('../models/user');
 
-// The authentication controller.
+// The authentication controller
 var AuthController = {};
 
-// Register a user.
+// Register a user by passing their form inputs to the db and returns them to the login screen to log in
 AuthController.signUp = function(req, res) {
   console.log(req.body.email);
   if(!req.body.email || !req.body.username || !req.body.password) {
@@ -24,8 +27,8 @@ AuthController.signUp = function(req, res) {
       };
 
       return User.create(newUser).then(function() {
-        res.redirect('api/chat');
-        res.status(201).json({ message: 'Account created!' });
+        res.redirect('/login');
+        // res.status(201).json({ message: 'Account created!' });
       });
     }).catch(function(error) {
       res.status(403).json({ message: 'Username or email already exists!' });
@@ -33,7 +36,9 @@ AuthController.signUp = function(req, res) {
   }
 }
 
-AuthController.authenticateUser = function(req, res) {
+// function call when a user logs in, finds the user and signs them with a JWT if their credentials are correct. Returns erros if user is not found
+
+AuthController.authenticateUser = function(req, res, next) {
   if(!req.body.username || !req.body.password) {
     res.status(404).json({ message: 'Username and password are needed!' });
   } else {
@@ -47,15 +52,19 @@ AuthController.authenticateUser = function(req, res) {
       } else {
         bcrypt.compare(password, user.password, function(error, isMatch) {
           if(isMatch && !error) {
-            var token = jwt.sign(
+            const token = jwt.sign(
               { username: user.username },
               config.keys.secret,
               { expiresIn: '30m' }
             );
-
-            res.redirect('/chat');
+            user.save().then(function(){
+              res.cookie('auth_token', token);
+              res.cookie('role', user.role);
+              return res.json({ user: User.toAuthJSON});
+            }).catch(next);
+            // res.status(200).send('Everything is alright');
           } else {
-            res.status(404).json({ message: 'Login failed!' });
+            res.redirect('/login');
           }
         });
       }
@@ -63,6 +72,59 @@ AuthController.authenticateUser = function(req, res) {
       res.status(500).json({ message: 'There was an error!' });
     });
   }
+}
+
+// Token check to ensure the user has logged in and been assigned a valid token
+
+AuthController.verifyToken = function(req, res, next) {
+  if(!req.cookies.auth_token) {
+    console.log('no token');
+    res.redirect('/401');
+  } else {
+    jwt.verify(req.cookies.auth_token, config.keys.secret, (err, decoded)=>{
+      if(err){
+        res.status(403).json({
+          message:"Wrong Token"
+      });
+      } else {
+        req.decoded=decoded;
+        res.set({
+          username: decoded.username,
+          role: req.cookies.role
+        });
+        console.log(req.decoded);
+        console.log(req.decoded.username);
+        next()
+      }
+    });
+  }
+}
+
+// Role check to ensure the user has logged in and possesses the admin role IAW the user row in the db
+
+AuthController.verifyRole = function(req, res, next) {
+  if(!req.cookies.role) {
+    console.log('no role');
+    res.redirect('/401');
+  } else if(req.cookies.role != 8) {
+    console.log('no admin role');
+    res.redirect('/403');
+  } else {
+    res.set({role: req.cookies.role})
+    next()
+  }
+}
+
+// Extra auth check, fallback in the event that verifyToken doesn't work
+
+AuthController.ensureAuthenticated = function(req, res, next) {
+  if (!(req.cookies.auth_token && req.body.username)) {
+    res.end;
+    // res.redirect('/login');
+  } else {
+    console.log('it made it to the auth check');
+  }
+  next()
 }
 
 
