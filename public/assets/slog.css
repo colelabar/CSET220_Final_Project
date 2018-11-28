@@ -211,6 +211,10 @@
   color: black;
 }
 
+.hidden {
+  display: none;
+}
+
 .buttonPointer {
   cursor: pointer;
 }
