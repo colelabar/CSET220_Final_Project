@@ -18,8 +18,7 @@ var APIRoutes = function(passport) {
 
   router.get('/chat', AuthController.verifyToken);
 
-  router.get('/admin', AuthController.verifyToken, allowOnly(config.accessLevels.admin,
-  AdminController.index));
+  router.get('/admin', AuthController.verifyToken, AuthController.verifyRole);
 
 
 

@@ -5,6 +5,9 @@ $(document).ready(function() {
     url:'/api/chat'
   }).done(function (data, textStatus, xhr) {
     $('#username').append(xhr.getResponseHeader('username'));
+    if(xhr.getResponseHeader('role') > 6) {
+      $('#btn-admin').removeClass('hidden');
+    }
   });
 
   // Initialize Pusher instance
@@ -21,6 +24,9 @@ $(document).ready(function() {
     template = template.replace('{{name}}', data.name);
 
     $('#chat').append(template);
+
+    // fix to force auto-scrolling on new message send
+    $(".panel-body").stop().animate({ scrollTop: $(".panel-body")[0].scrollHeight}, 1000);
   }
 
   // Subscribing the messaging user to the chat channel
@@ -31,11 +37,26 @@ $(document).ready(function() {
   // function to post the users message to the /message endpoint
 
   $('#btn-chat').click(function(){
-      const message = $("#message").val();
-      $("#message").val("");
-        //send message
-      $.post( "http://localhost:8080/message", { message, name: $('#username').text() } );
+    const message = $("#message").val();
+    $("#message").val("");
+      //send message
+    $.post( "http://localhost:8080/message", { message, name: $('#username').text() } );
+  });
+
+  $('#btn-admin').click(function(e){
+    e.preventDefault();
+    $.ajax({
+      url: '/api/admin',
+      type: 'GET',
+      success: function(){
+         try { window.location.replace('/api/admin'); }
+         catch(err) { window.location = '/api/chat'; }
+      },
+      error: function(){
+         alert('error');
+      }
     });
+  });
 
     // functionality to log the user out and clear local storage when they click "logout"
 

@@ -59,6 +59,7 @@ AuthController.authenticateUser = function(req, res, next) {
             );
             user.save().then(function(){
               res.cookie('auth_token', token);
+              res.cookie('role', user.role);
               return res.json({ user: User.toAuthJSON});
             }).catch(next);
             // res.status(200).send('Everything is alright');
@@ -87,12 +88,30 @@ AuthController.verifyToken = function(req, res, next) {
       });
       } else {
         req.decoded=decoded;
-        res.set({username: decoded.username})
+        res.set({
+          username: decoded.username,
+          role: req.cookies.role
+        });
         console.log(req.decoded);
         console.log(req.decoded.username);
         next()
       }
     });
+  }
+}
+
+// Role check to ensure the user has logged in and possesses the admin role IAW the user row in the db
+
+AuthController.verifyRole = function(req, res, next) {
+  if(!req.cookies.role) {
+    console.log('no role');
+    res.redirect('/401');
+  } else if(req.cookies.role != 8) {
+    console.log('no admin role');
+    res.redirect('/403');
+  } else {
+    res.set({role: req.cookies.role})
+    next()
   }
 }
 

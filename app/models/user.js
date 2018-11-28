@@ -79,7 +79,7 @@ function hashPassword(user) {
   }
 }
 
-// Sets the user params to a JSON response 
+// Sets the user params to a JSON response
 
 var toAuthJSON = function(){
     return {
