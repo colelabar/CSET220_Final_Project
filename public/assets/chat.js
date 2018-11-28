@@ -21,6 +21,7 @@ $(document).ready(function() {
     template = template.replace('{{name}}', data.name);
 
     $('#chat').append(template);
+    $(".panel-body").stop().animate({ scrollTop: $(".panel-body")[0].scrollHeight}, 1000);
   }
 
   // Subscribing the messaging user to the chat channel
