@@ -37,10 +37,10 @@ $(document).ready(function() {
   // function to post the users message to the /message endpoint
 
   $('#btn-chat').click(function(){
-    const message = $("#message").val();
-    $("#message").val("");
+    const message = $('#message').val();
+    $('#message').val("");
       //send message
-    $.post( "http://localhost:8080/message", { message, name: $('#username').text() } );
+    $.post( '/message', { message, name: $('#username').text() } );
   });
 
   $('#btn-admin').click(function(e){
