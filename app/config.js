@@ -6,13 +6,13 @@ var config = module.exports;
 // Configurations settings for the database credentials
 
 config.db = {
-  user: 'root',
-  password: '',
-  name: 'final220'
+  user: 'we6djsflotdx49ks',
+  password: 'i5h176cgvclrn7ee',
+  name: 'sip9mjfac89e2k6u'
 };
 
 config.db.details = {
-  host: 'localhost',
+  host: 'i943okdfa47xqzpy.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   port: 3306,
   dialect: 'mysql'
 };
