@@ -43,6 +43,16 @@ $(document).ready(function() {
     $.post( '/message', { message, name: $('#username').text() } );
   });
 
+  // Extra functionality to allow message posting on "enter" press
+
+  $('#message').keypress(function(e){
+    if(e.which == 13){
+      $('#btn-chat').click();
+    }
+  });
+
+  // function to take the admin user to the admin page when the correct button is pressed
+
   $('#btn-admin').click(function(e){
     e.preventDefault();
     $.ajax({
