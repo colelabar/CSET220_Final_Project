@@ -1,0 +1,11 @@
+{
+  "summary": {
+    "title": "CSET220 Threat Model",
+    "owner": "Cole L Simchick",
+    "description": "The system is a authenticated chat application featuring real-time messaging and administrative-level users with a retro theme"
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": []
+  }
+}
