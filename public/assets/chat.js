@@ -20,7 +20,7 @@ $(document).ready(function() {
 
   function onMessageAdded(data) {
     let template = $('#new-message').html();
-    template = template.replace('{{body}}', data.message);
+    template = template.replace('{{body}}', DOMPurify.sanitize(data.message));
     template = template.replace('{{name}}', data.name);
 
     $('#chat').append(template);
@@ -37,11 +37,21 @@ $(document).ready(function() {
   // function to post the users message to the /message endpoint
 
   $('#btn-chat').click(function(){
-    const message = $("#message").val();
-    $("#message").val("");
+    const message = $('#message').val();
+    $('#message').val("");
       //send message
-    $.post( "http://localhost:8080/message", { message, name: $('#username').text() } );
+    $.post( '/message', { message, name: $('#username').text() } );
   });
+
+  // Extra functionality to allow message posting on "enter" press
+
+  $('#message').keypress(function(e){
+    if(e.which == 13){
+      $('#btn-chat').click();
+    }
+  });
+
+  // function to take the admin user to the admin page when the correct button is pressed
 
   $('#btn-admin').click(function(e){
     e.preventDefault();
