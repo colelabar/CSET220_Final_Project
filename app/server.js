@@ -10,7 +10,8 @@ var express = require('express'),
   path = require('path'),
   cors = require('cors'),
   jwt = require('jsonwebtoken'),
-  cookieParser = require('cookie-parser');
+  cookieParser = require('cookie-parser'),
+  DOMpurify = require('dompurify');
 
 
 

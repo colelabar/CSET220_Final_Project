@@ -20,7 +20,7 @@ $(document).ready(function() {
 
   function onMessageAdded(data) {
     let template = $('#new-message').html();
-    template = template.replace('{{body}}', data.message);
+    template = template.replace('{{body}}', DOMPurify.sanitize(data.message));
     template = template.replace('{{name}}', data.name);
 
     $('#chat').append(template);
