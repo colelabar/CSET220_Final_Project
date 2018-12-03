@@ -36,7 +36,7 @@ AuthController.signUp = function(req, res) {
   }
 }
 
-// function call when a user logs in, finds the user and signs them with a JWT if their credentials are correct. Returns erros if user is not found
+// function call when a user logs in, finds the user and signs them with a JWT if their credentials are correct. Returns errors if user is not found
 
 AuthController.authenticateUser = function(req, res, next) {
   if(!req.body.username || !req.body.password) {
@@ -61,8 +61,10 @@ AuthController.authenticateUser = function(req, res, next) {
               res.cookie('auth_token', token);
               res.cookie('role', user.role);
               return res.json({ user: User.toAuthJSON});
-            }).catch(next);
+            }).catch(error);
             // res.status(200).send('Everything is alright');
+          } else if(!isMatch) {
+            res.redirect('/login')
           } else {
             res.redirect('/login');
           }

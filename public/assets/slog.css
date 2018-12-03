@@ -50,6 +50,10 @@
   font-weight: 400;
 }
 
+.divider {
+  border-bottom: 2px black solid;
+}
+
 .formContainer {
   display: block;
   width: 60%;

@@ -20,6 +20,8 @@ var APIRoutes = function(passport) {
 
   router.get('/admin', AuthController.verifyToken, AuthController.verifyRole);
 
+  router.get('/users', AdminController.allUsers);
+
 
 
   return router;
