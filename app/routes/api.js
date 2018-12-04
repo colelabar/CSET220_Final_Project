@@ -22,6 +22,8 @@ var APIRoutes = function(passport) {
 
   router.get('/users', AdminController.allUsers);
 
+  router.put('/userban', AdminController.banuser);
+
 
 
   return router;

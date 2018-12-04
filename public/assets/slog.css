@@ -144,6 +144,26 @@
   text-decoration: none;
 }
 
+.adminButton-Ban {
+  font-size: 25px;
+  font-family: 'Righteous', sans-serif;
+  height: 40px;
+  padding: 2px;
+  background-color: #E6853D; /* Orange-ish color */
+  background-image: linear-gradient(to bottom,#E6853D 0,#FA6734 100%);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+}
+
+.adminButton-Ban:hover {
+  cursor: pointer;
+  background-color: #E4C44C; /* Yellow color */
+  background-image: none;
+  border: 1px solid #E6853D;
+}
+
 .homeButton {
   font-size: 25px;
   font-family: 'Righteous', sans-serif;
@@ -244,4 +264,12 @@
 
 .buttonPointer {
   cursor: pointer;
+}
+
+.userInfoRow {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px black solid;
 }
