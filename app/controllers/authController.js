@@ -36,7 +36,7 @@ AuthController.signUp = function(req, res) {
   }
 }
 
-// function call when a user logs in, finds the user and signs them with a JWT if their credentials are correct. Returns erros if user is not found
+// function call when a user logs in, finds the user and signs them with a JWT if their credentials are correct. Returns errors if user is not found
 
 AuthController.authenticateUser = function(req, res, next) {
   if(!req.body.username || !req.body.password) {
@@ -51,7 +51,9 @@ AuthController.authenticateUser = function(req, res, next) {
         res.status(404).json({ message: 'Authentication failed!' });
       } else {
         bcrypt.compare(password, user.password, function(error, isMatch) {
-          if(isMatch && !error) {
+          if(!isMatch) {
+            res.redirect('/login')
+          } else if(isMatch && !error) {
             const token = jwt.sign(
               { username: user.username },
               config.keys.secret,
@@ -61,8 +63,10 @@ AuthController.authenticateUser = function(req, res, next) {
               res.cookie('auth_token', token);
               res.cookie('role', user.role);
               return res.json({ user: User.toAuthJSON});
-            }).catch(next);
+            }).catch(error);
             // res.status(200).send('Everything is alright');
+          } else if(!isMatch) {
+            res.redirect('/login')
           } else {
             res.redirect('/login');
           }
@@ -106,7 +110,7 @@ AuthController.verifyRole = function(req, res, next) {
   if(!req.cookies.role) {
     console.log('no role');
     res.redirect('/401');
-  } else if(req.cookies.role != 8) {
+  } else if(req.cookies.role < 4) {
     console.log('no admin role');
     res.redirect('/403');
   } else {
