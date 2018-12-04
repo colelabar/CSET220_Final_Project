@@ -51,7 +51,9 @@ AuthController.authenticateUser = function(req, res, next) {
         res.status(404).json({ message: 'Authentication failed!' });
       } else {
         bcrypt.compare(password, user.password, function(error, isMatch) {
-          if(isMatch && !error) {
+          if(!isMatch) {
+            res.redirect('/login')
+          } else if(isMatch && !error) {
             const token = jwt.sign(
               { username: user.username },
               config.keys.secret,

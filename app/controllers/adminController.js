@@ -23,9 +23,9 @@ AdminController.allUsers = function(req, res, next) {
 AdminController.banUser = function(req, res, next) {
   console.log(req.body)
   var potentialUser = { where: { username: req.body.username } };
-  User.find(potentialUser).then(function(user){
+  User.findOne(potentialUser).then(function(user){
     if (user) {
-      user.updateAttributes({
+      user.update({
         // need logic to unban
         isFlagged: 1
       });
@@ -39,9 +39,9 @@ AdminController.banUser = function(req, res, next) {
 // logic to promote a user to admin
 AdminController.promoteUser = function(req, res, next) {
   var potentialUser = { where: { username: req.body.username } };
-  User.find(potentialUser).then(function(user){
+  User.findOne(potentialUser).then(function(user){
     if (user) {
-      user.updateAttributes({
+      user.update({
         role: 4
       });
       res.status(200).send(user);
@@ -54,9 +54,9 @@ AdminController.promoteUser = function(req, res, next) {
 // logic to demote a user to standard user
 AdminController.demoteUser = function(req, res, next) {
   var potentialUser = { where: { username: req.body.username } };
-  User.find(potentialUser).then(function(user){
+  User.findOne(potentialUser).then(function(user){
     if (user) {
-      user.updateAttributes({
+      user.update({
         role: 2
       });
       res.status(200).send(user);
