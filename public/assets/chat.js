@@ -5,7 +5,7 @@ $(document).ready(function() {
     url:'/api/chat'
   }).done(function (data, textStatus, xhr) {
     $('#username').append(xhr.getResponseHeader('username'));
-    if(xhr.getResponseHeader('role') > 6) {
+    if(xhr.getResponseHeader('role') > 2) {
       $('#btn-admin').removeClass('hidden');
     }
   });
