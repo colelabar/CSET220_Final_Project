@@ -144,6 +144,12 @@
   text-decoration: none;
 }
 
+.adminButtonCon {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+
 .adminButton-Ban {
   font-size: 25px;
   font-family: 'Righteous', sans-serif;
@@ -157,7 +163,49 @@
   text-decoration: none;
 }
 
+.adminButton-Promote {
+  font-size: 25px;
+  font-family: 'Righteous', sans-serif;
+  height: 40px;
+  padding: 2px;
+  background-color: #E6853D; /* Orange-ish color */
+  background-image: linear-gradient(to bottom,#E6853D 0,#FA6734 100%);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  margin-right: 1em;
+}
+
+.adminButton-Demote {
+  font-size: 25px;
+  font-family: 'Righteous', sans-serif;
+  height: 40px;
+  padding: 2px;
+  background-color: #E6853D; /* Orange-ish color */
+  background-image: linear-gradient(to bottom,#E6853D 0,#FA6734 100%);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  margin-right: 1em;
+}
+
 .adminButton-Ban:hover {
+  cursor: pointer;
+  background-color: #E4C44C; /* Yellow color */
+  background-image: none;
+  border: 1px solid #E6853D;
+}
+
+.adminButton-Promote:hover {
+  cursor: pointer;
+  background-color: #E4C44C; /* Yellow color */
+  background-image: none;
+  border: 1px solid #E6853D;
+}
+
+.adminButton-Demote:hover {
   cursor: pointer;
   background-color: #E4C44C; /* Yellow color */
   background-image: none;
@@ -272,4 +320,120 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px black solid;
+  text-align: left;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .adminButton-Ban {
+    font-size: 20px;
+    height: 35px;
+  }
+  .adminButton-Promote {
+    font-size: 20px;
+    height: 35px;
+  }
+  .adminButton-Demote {
+    font-size: 20px;
+    height: 35px;
+  }
+  .userInfo {
+    font-size: 15px !important;
+  }
+  .messageCon {
+    width: 70%;
+  }
+  .mainBox {
+    width: 90%;
+  }
+  .homeTitleCon {
+    width: 70%;
+  }
+  .homeMessageCon {
+    width: 70%;
+  }
+  .homeImageCon {
+    width: 70%;
+  }
+  .titleCon {
+    width: 70%;
+  }
+  .formContainer {
+    width: 70%;
+  }
+
+  @media only screen and (max-width: 700px) {
+    .userInfoRow {
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding-bottom: 10px;
+      display: block;
+    }
+    .userInfo {
+      font-size: 20px !important;
+      text-align: center;
+    }
+    .adminButtonCon {
+      margin: 0 auto;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .adminButton-Ban {
+      font-size: 15px;
+      height: 25px;
+      width: 100px;
+      margin-bottom: 5px;
+    }
+    .adminButton-Promote {
+      font-size: 15px;
+      height: 25px;
+      width: 100px;
+      margin-bottom: 5px;
+    }
+    .adminButton-Demote {
+      font-size: 15px;
+      height: 25px;
+      width: 100px;
+      margin-bottom: 5px;
+    }
+    .adminButtonCon {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin: 0 auto;
+    }
+    .userInfoRow {
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding-bottom: 10px;
+      display: block;
+    }
+    .userInfo {
+      font-size: 15px !important;
+      text-align: center;
+    }
+    .messageCon {
+      width: 80%;
+    }
+    .mainBox {
+      width: 100%;
+      padding: 0;
+    }
+    .homeTitleCon {
+      width: 80%;
+    }
+    .homeMessageCon {
+      width: 80%;
+    }
+    .homeImageCon {
+      width: 80%;
+    }
+    .titleCon {
+      width: 80%;
+    }
+    .formContainer {
+      width: 80%;
+    }
 }

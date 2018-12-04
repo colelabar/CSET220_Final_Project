@@ -108,7 +108,7 @@ AuthController.verifyRole = function(req, res, next) {
   if(!req.cookies.role) {
     console.log('no role');
     res.redirect('/401');
-  } else if(req.cookies.role != 8) {
+  } else if(req.cookies.role < 4) {
     console.log('no admin role');
     res.redirect('/403');
   } else {
