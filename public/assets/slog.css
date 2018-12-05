@@ -335,6 +335,17 @@
   text-align: left;
 }
 
+.adminUserSymbol {
+  color: #D5A33E; /* gold color */
+  font-size: 20px;
+  text-shadow: 0 0 3px #000000;
+}
+
+.bannedSymbol {
+  color: #C02312; /* red color */
+  font-size: 20px;
+}
+
 @media only screen and (max-width: 1000px) {
   .adminButton-Ban {
     font-size: 20px;
@@ -349,6 +360,12 @@
     height: 35px;
   }
   .userInfo {
+    font-size: 15px !important;
+  }
+  .adminUserSymbol {
+    font-size: 15px !important;
+  }
+  .bannedSymbol {
     font-size: 15px !important;
   }
   .userInfoName {
@@ -391,6 +408,14 @@
       font-size: 20px !important;
       text-align: center;
     }
+    .adminUserSymbol {
+      font-size: 20px !important;
+      text-align: center;
+    }
+    .bannedSymbol {
+      font-size: 20px !important;
+      text-align: center;
+    }
     .adminButtonCon {
       margin: 0 auto;
     }
@@ -429,6 +454,14 @@
       display: block;
     }
     .userInfo {
+      font-size: 15px !important;
+      text-align: center;
+    }
+    .adminUserSymbol {
+      font-size: 15px !important;
+      text-align: center;
+    }
+    .bannedSymbol {
       font-size: 15px !important;
       text-align: center;
     }
