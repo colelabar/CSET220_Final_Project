@@ -49,6 +49,9 @@ AuthController.authenticateUser = function(req, res, next) {
     User.findOne(potentialUser).then(function(user) {
       if(!user) {
         res.status(404).json({ message: 'Authentication failed!' });
+      } else if(user.isFlagged) {
+        console.log(user.isFlagged);
+        res.redirect('/401');
       } else {
         bcrypt.compare(password, user.password, function(error, isMatch) {
           if(!isMatch) {
@@ -57,7 +60,7 @@ AuthController.authenticateUser = function(req, res, next) {
             const token = jwt.sign(
               { username: user.username },
               config.keys.secret,
-              { expiresIn: '30m' }
+              { expiresIn: '15m' }
             );
             user.save().then(function(){
               res.cookie('auth_token', token);

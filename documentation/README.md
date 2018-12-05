@@ -35,7 +35,7 @@ This project, through its many iterations, was built using a variety of language
 
 1. I started by running through the tutorial on the Pusher website, which went relatively smoothly until I realized the Authentication system that was "recommended" by it was lacking in the localized-database department.
 
-2. To ensure my authentication system was unmarred by the creation of the tutorial, I started a new repo and constructed my authentication from there. Utilizing tools like PassportJS and JWT, as well as spending countless hours determining the structure of the auth system eventually led to it's completion. Steps in this trial were:
+2. To ensure my authentication system was unmarred by the creation of the tutorial, I started a new repo and constructed my authentication from there. Utilizing tools like PassportJS and JWT, as well as spending countless hours determining the structure of the auth system eventually led to its completion. Steps in this trial were:
   * Creating the MySQL database with my pre-determined user model
   * Creating endpoints for authentication
   * Testing the endpoints in Postman to ensure backend <-> database communication was valid
@@ -45,3 +45,8 @@ This project, through its many iterations, was built using a variety of language
   * The application was styled and made to be much more user friendly
   * A stand-in template for the future administration panel was created, along with associated buttons
   * The implementation of JQuery on-click handlers for form submittal and message sending
+
+4. After the basic functionality and styling of the application was finalized and operational (Read: Fully armed and operational battlestation), I felt it appropriate to begin working on the administration features for it. This included the creation of an admin dashboard and a more complex user role system based on the user model defined in Step 2. The administration portal allows a user (with admin privileges) to promote a user to admin, demote an admin to a standard user, and ban a user.
+
+## Data Analysis Life Cycle
+---------------------------
