@@ -70,6 +70,10 @@ app.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname + '../../public/app/views/login.html'));
 });
 
+app.get('/privacy', function(req, res) {
+  res.sendFile(path.join(__dirname + '../../public/app/views/privacy-policy.html'));
+});
+
 app.get('/401', function(req, res) {
 res.sendFile(path.join(__dirname + '../../public/app/views/401.html'));
 });
