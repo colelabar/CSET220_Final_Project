@@ -282,6 +282,35 @@
   color: #8A5C35;
 }
 
+.privmessageCon {
+  width: 10%;
+  height: auto;
+  padding: 5px;
+  text-align: center;
+  background-color: #A0C1BC;
+  border: 2px solid black;
+  border-radius: 20px;
+  box-shadow: 10px 5px 5px rgba(56, 52, 48);
+  margin: 1em auto;
+}
+
+.privmessageCon p {
+  font-size: 10px;
+  font-family: 'Righteous', cursive;
+}
+
+.privmessageCon p a {
+  color: #E6853D;
+}
+
+.privmessageCon p a:hover {
+  color: #FA6734;
+}
+
+.privmessageCon p a:visited {
+  color: #8A5C35;
+}
+
 .homeMessageCon {
   width: 40%;
   padding: 1% 5%;
