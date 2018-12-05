@@ -5,11 +5,23 @@ $(document).ready(function() {
     url:'/api/users',
     type: 'GET',
     dataType: 'json',
-    success: function (data,status,xhr) {   // success callback function maybe use a loop
+    success: function (data,status,xhr) {  // success callback function maybe use a loop
       var i;
       console.log(data);
       for(i = 0; i < data.length; i++) {
-        $('#user-list').append('<div class="userInfoRow"><p class="userInfo">' + data[i]['username'] + ' /// ' + data[i]['email'] + '</p><div class="adminButtonCon"><button value="' + data[i]['username'] + '" class="adminButton-Promote">ROLE&#8593</button><button value="' + data[i]['username'] + '" class="adminButton-Demote">ROLE&#8595</button><button value="' + data[i]['username'] + '" class="adminButton-Ban">BAN</button></div></div>');
+        if((data[i]['role'] > 2) && (data[i]['role'] < 8)) {
+          // if the user is an admin or superadmin, display a crown next to their name
+          $('#user-list').append('<div class="userInfoRow"><div class="userInfoCon"><div class="adminUser"><p class="adminUserSymbol">&#9819; User is Admin </p><p class="userInfoName">' + data[i]['username'] + '</p></div><p class="userInfo">' + data[i]['email'] + '</p></div><div class="adminButtonCon"><button value="' + data[i]['username'] + '" class="adminButton-Promote">ROLE&#8593</button><button value="' + data[i]['username'] + '" class="adminButton-Demote">ROLE&#8595</button><button value="' + data[i]['username'] + '" class="adminButton-Ban">BAN</button></div></div>');
+        } else if((data[i]['role'] < 4) && (data[i]['isFlagged'] == 0)) {
+          // display standard user profile row
+          $('#user-list').append('<div class="userInfoRow"><div class="userInfoCon"><p class="userInfoName">' + data[i]['username'] + '</p><p class="userInfo">' + data[i]['email'] + '</p></div><div class="adminButtonCon"><button value="' + data[i]['username'] + '" class="adminButton-Promote">ROLE&#8593</button><button value="' + data[i]['username'] + '" class="adminButton-Demote">ROLE&#8595</button><button value="' + data[i]['username'] + '" class="adminButton-Ban">BAN</button></div></div>');
+        } else if((data[i]['role'] < 4) && (data[i]['isFlagged'] == 1)) {
+          // display standard user profile row for banned user with an X next to their name
+          $('#user-list').append('<div class="userInfoRow"><div class="userInfoCon"><div class="bannedUser"><p class="bannedSymbol">&#9888; User is Banned</p><p class="userInfoName">' + data[i]['username'] + '</p></div><p class="userInfo">' + data[i]['email'] + '</p></div><div class="adminButtonCon"><button value="' + data[i]['username'] + '" class="adminButton-Promote">ROLE&#8593</button><button value="' + data[i]['username'] + '" class="adminButton-Demote">ROLE&#8595</button><button value="' + data[i]['username'] + '" class="adminButton-Ban">BAN</button></div></div>');
+        } else {
+          // else just display superadmin name and email
+          $('#user-list').append('<div class="userInfoRow"><div class="userInfoCon"><div class="adminUser"><p class="adminUserSymbol">&#9819; User is Admin </p><p class="userInfoName">' + data[i]['username'] + '</p></div><p class="userInfo">' + data[i]['email'] + '</p></div></div></div>');
+        }
       }
       banClick();
       promoteClick();
