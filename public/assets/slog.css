@@ -131,6 +131,10 @@
   text-decoration: none;
 }
 
+.adminCrown {
+  color: #E6853D;
+}
+
 .adminButton {
   font-size: 25px;
   font-family: 'Righteous', sans-serif;
@@ -324,6 +328,13 @@
   font-size: 20px;
 }
 
+.userInfoCon {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
 @media only screen and (max-width: 1000px) {
   .adminButton-Ban {
     font-size: 20px;
@@ -338,6 +349,9 @@
     height: 35px;
   }
   .userInfo {
+    font-size: 15px !important;
+  }
+  .userInfoName {
     font-size: 15px !important;
   }
   .messageCon {
@@ -370,6 +384,10 @@
       display: block;
     }
     .userInfo {
+      font-size: 20px !important;
+      text-align: center;
+    }
+    .userInfoName {
       font-size: 20px !important;
       text-align: center;
     }
@@ -411,6 +429,10 @@
       display: block;
     }
     .userInfo {
+      font-size: 15px !important;
+      text-align: center;
+    }
+    .userInfoName {
       font-size: 15px !important;
       text-align: center;
     }
