@@ -18,9 +18,7 @@ AuthController.signUp = function(req, res) {
   console.log(req.body.email);
   if(!req.body.email || !req.body.username || !req.body.password) {
     res.json({ message: 'Please provide an email, username, and password.' });
-  } else if(!req.body.email.includes('%@%.')) {
-    res.json({ message: 'Incorrect email format!' });
-  }  else {
+  } else {
     db.sync().then(function() {
       var newUser = {
         email: req.body.email,
