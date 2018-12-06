@@ -19,6 +19,8 @@ var express = require('express'),
 var hookJWTStrategy = require('./services/passportStrategy');
 var config = require('./config');
 var favicon = require('serve-favicon');
+var db = require('./services/database');
+var Message = require('./models/message');
 
 // Initializations
 var app = express();
@@ -92,8 +94,19 @@ app.post('/pusher/auth', function(req, res) {
   app.post('/message', function(req, res) {
     var message = req.body.message;
     var name = req.body.name;
-    pusher.trigger( 'private-chat', 'client-message-added', { message, name });
-    res.sendStatus(200);
+    var time = req.body.time;
+    pusher.trigger( 'private-chat', 'client-message-added', { message, name, time });
+    db.sync().then(function() {
+      var newMessage = {
+        username: name,
+        message: message
+      }
+      return Message.create(newMessage).then(function() {
+        res.sendStatus(200);
+      }).catch(function(error) {
+        res.status(403).json({ message: 'Hmm...something seems to have gone wrong' });
+      });
+    });
   });
 
 // Bundle API routes.
