@@ -21,7 +21,7 @@ $(document).ready(function() {
   function onMessageAdded(data) {
     let template = $('#new-message').html();
     template = template.replace('{{body}}', DOMPurify.sanitize(data.message));
-    template = template.replace('{{name}}', data.name);
+    template = template.replace('{{name}}', ('<strong>' + data.name + '</strong> <em>@' + data.time + '</em>'));
 
     $('#chat').append(template);
 
@@ -38,9 +38,10 @@ $(document).ready(function() {
 
   $('#btn-chat').click(function(){
     const message = $('#message').val();
+    const cTime = new Date().toLocaleString();
     $('#message').val("");
       //send message
-    $.post( '/message', { message, name: $('#username').text() } );
+    $.post( '/message', { message, name: $('#username').text(), time: cTime } );
   });
 
   // Extra functionality to allow message posting on "enter" press
