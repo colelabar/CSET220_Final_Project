@@ -74,4 +74,15 @@ $(document).ready(function() {
     });
   }
 
+  // Visualization ajax call goes here
+  // call to router, router calls function for query and D3 / Chartjs
+  // $.ajax({
+  //   url:'/api/messageovertime',
+  //   type: 'GET',
+  //   dataType: 'json',
+  //   success: function (data) {
+  //     alert('User has been promoted');
+  //   }
+  // })
+
 })
