@@ -12,7 +12,7 @@
         e.preventDefault();
 
         $.ajax({
-           url: '/api/login',
+           url: '/api/user/login',
            type: 'POST',
            cache: false,
            data: $('#loginForm').serializeArray(),

@@ -12,23 +12,23 @@ var config = require('../config'),
 
 var APIRoutes = function(passport) {
 
-  router.post('/signup', AuthController.signUp);
+  router.post('/user/signup', AuthController.signUp);
 
-  router.post('/login', AuthController.authenticateUser);
+  router.post('/user/login', AuthController.authenticateUser);
 
   router.get('/chat', AuthController.verifyToken);
 
-  router.get('/admin', AuthController.verifyToken, AuthController.verifyRole);
+  router.get('/user/admin', AuthController.verifyToken, AuthController.verifyRole);
 
-  router.get('/users', AdminController.allUsers);
+  router.get('/user/users', AdminController.allUsers);
 
   router.get('/messageovertime', AdminController.allMessages);
 
-  router.put('/userban', AdminController.banUser);
+  router.put('/admin/userban', AdminController.banUser);
 
-  router.put('/userpromote', AdminController.promoteUser);
+  router.put('/admin/userpromote', AdminController.promoteUser);
 
-  router.put('/userdemote', AdminController.demoteUser);
+  router.put('/admin/userdemote', AdminController.demoteUser);
 
 
 
