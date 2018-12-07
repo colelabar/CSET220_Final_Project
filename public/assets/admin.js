@@ -26,6 +26,7 @@ $(document).ready(function() {
       banClick();
       promoteClick();
       demoteClick();
+      getMessages();
     }
   })
 
@@ -76,13 +77,55 @@ $(document).ready(function() {
 
   // Visualization ajax call goes here
   // call to router, router calls function for query and D3 / Chartjs
-  // $.ajax({
-  //   url:'/api/messageovertime',
-  //   type: 'GET',
-  //   dataType: 'json',
-  //   success: function (data) {
-  //     alert('User has been promoted');
-  //   }
-  // })
+  // sets an empty array, an array of zeros, and an array of labels. As the loop iterates over the returned data, it adds the instances of unique times to the empty array, returning it as the dataset for the chart
+  function getMessages() {
+    $.ajax({
+      url:'/api/messageovertime',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        var timesList = [];
+        var timesCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var labels = ['7PM', '8PM', '9PM', '10PM', '11PM', '12AM', '1AM', '2AM', '3AM', '4AM', '5AM', '6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM'];
+        var a;
+        for(a = 0; a < data.length; a++) {
+          // data needs to be an array of counts
+          var singleTime = parseInt(data[a]['createdAt'].slice(11,13));
+          if(timesList.includes(singleTime)) {
+            (timesCount[singleTime] += 1)
+          } else {
+            timesList.push(singleTime) && (timesCount[singleTime] += 1)
+          }
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: labels,
+                datasets: [{
+                  label: '# of Messages',
+                  data: timesCount,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgba(255,99,132,1)'
+                  ],
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero:true
+                    }
+                  }]
+                }
+              }
+            });
+          }
+        }
+    })
+  }
 
 })

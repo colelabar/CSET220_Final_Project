@@ -4,6 +4,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato|Righteous" rel="stylesheet">
   <link rel="stylesheet" href="/assets/slog.css">
   <script src="https://code.jquery.com/jquery-1.6.2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
   <script src="/assets/admin.js"></script>
 </head>
 <body class="slogBody">
@@ -15,9 +16,8 @@
     <a class="adminButton" href="/api/chat">BACK TO CHAT</a>
   </div>
 
-  <div class="messageCon">
-    <p>Placeholder for visualization
-    </p>
+  <div class="messageCon" id="message-viz">
+    <canvas id="myChart" width="400" height="300"></canvas>
   </div>
 
   <div class="messageCon" id="user-list">

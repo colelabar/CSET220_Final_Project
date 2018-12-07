@@ -27,6 +27,12 @@ var modelDefinition = {
     type: Sequelize.STRING,
     unique: false,
     allowNull: false
+  },
+
+  createdAt: {
+    type: Sequelize.DATE(6),
+    allowNull: true,
+    defaultValue: Sequelize.fn('NOW', 6)
   }
 };
 
