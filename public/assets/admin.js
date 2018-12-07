@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   // AJAX call to the api for user list from the db
   $.ajax({
-    url:'/api/users',
+    url:'/api/user/users',
     type: 'GET',
     dataType: 'json',
     success: function (data,status,xhr) {  // success callback function maybe use a loop
@@ -34,7 +34,7 @@ $(document).ready(function() {
   function banClick() {
     $('.adminButton-Ban').click(function(){
       $.ajax({
-        url:'/api/userban',
+        url:'/api/admin/userban',
         type: 'PUT',
         data: { 'username': this.value },
         dataType: 'json',
@@ -49,7 +49,7 @@ $(document).ready(function() {
   function promoteClick() {
     $('.adminButton-Promote').click(function(){
       $.ajax({
-        url:'/api/userpromote',
+        url:'/api/admin/userpromote',
         type: 'PUT',
         data: { 'username': this.value },
         dataType: 'json',
@@ -64,7 +64,7 @@ $(document).ready(function() {
   function demoteClick() {
     $('.adminButton-Demote').click(function(){
       $.ajax({
-        url:'/api/userdemote',
+        url:'/api/admin/userdemote',
         type: 'PUT',
         data: { 'username': this.value },
         dataType: 'json',
