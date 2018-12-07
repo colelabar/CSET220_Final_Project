@@ -46,7 +46,28 @@ This project, through its many iterations, was built using a variety of language
   * A stand-in template for the future administration panel was created, along with associated buttons
   * The implementation of JQuery on-click handlers for form submittal and message sending
 
-4. After the basic functionality and styling of the application was finalized and operational (Read: Fully armed and operational battlestation), I felt it appropriate to begin working on the administration features for it. This included the creation of an admin dashboard and a more complex user role system based on the user model defined in Step 2. The administration portal allows a user (with admin privileges) to promote a user to admin, demote an admin to a standard user, and ban a user.
+4. After the basic functionality and styling of the application was finalized and working (Read: Fully armed and operational battlestation), I felt it appropriate to begin working on the administration features for it. This included the creation of an admin dashboard and a more complex user role system based on the user model defined in Step 2. The administration portal allows a user (with admin privileges) to promote a user to admin, demote an admin to a standard user, and ban a user. I created a system of badges to clearly identify banned and admin users.
 
 ## Data Analysis Life Cycle
 ---------------------------
+
+1. Discovery / Requirements
+  * Despite the project's literal classroom requirement to contain data visualizations that follow the DALC, as the application was under construction I began to see the feasibility and usability of such visual interpretations of data. Admins, for example, could use a chart of the "hot spot" time periods where users are more active on the system to determine times when more prevalent moderation may be necessary. This is what I decided to focus on: the visualization of messages over the course of a few days to give administrators another tool for their toolbox, so to speak.
+
+2. Collection
+  * The application was originally designed as a "fire and forget" system, where a user's chats were only as persistent as long as there was a connection to the chat room. This idea quickly became incompatible with my desired visualization, seeing as there was no way to pull the message information without storing it somewhere. I designed a Message model in my database and created an AJAX call to query for all messages.
+
+3. Data Prep / Cleaning
+  * Most of the message data was useless to me, such as the username of the author and the content of the message itself. I was only interested in the time of the message's creation in the database. Later steps of the DALC would allow me to access these parameters, leaving most of this stage to ensure no duplicates or anomalous posts were found in the system.
+
+4. Exploration / Planning
+  * I began to think about how I wanted the data to be visualized, ultimately deciding that it should be expressed in a line-graph style to quickly and accurately identify trends with little to no effort. This would require the conversion of the "CreatedAt" field of the message model to a usable time, and then create some algorithms to convert and combine data points into more broad ranges for the visual representation.
+
+5. Modeling / Algorithms
+  * This step proved to be the most difficult of the series, requiring several cases of heavy thought for converting the "CreatedAt" field into something more usable by the math functions I created. I ended up creating several arrays to iterate through and house my datasets, and slicing the "createdAt" field down to usable portions. This allowed me to (in an ugly way) map out the messages-per-hour sent through the chat system.
+
+6. Automation / Computation
+  * Now that most of the mathematical portions were complete and the data was ready to be molded into the form I wished it to take, I could begin constructing my charts. While I had originally planned to use a system such as D3JS to accomplish the task of visualizing, I came across ChartJS in dealings with my classmates. This easy-to-use charting system took the JSON I fed to it and spit out a beautiful looking line graph.
+
+7. Findings / Review
+  * Though it was expected, the results were interesting to see. Most of the messages sent through the system were sent in the morning between 9AM and 11AM. As stated previously, this isn't super surprising due to the fact that it's when the CSET class is in session, and when I'm most likely to have others assist in testing the system and sending data.

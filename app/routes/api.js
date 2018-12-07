@@ -22,6 +22,8 @@ var APIRoutes = function(passport) {
 
   router.get('/users', AdminController.allUsers);
 
+  router.get('/messageovertime', AdminController.allMessages);
+
   router.put('/userban', AdminController.banUser);
 
   router.put('/userpromote', AdminController.promoteUser);
