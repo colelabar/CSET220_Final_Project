@@ -6,6 +6,13 @@
     margin: 2em auto;
   }
 
+  .mainBodyDark {
+    width: 94%;
+    padding: 1% 3% 3%;
+    background-color: #61442B; /* dark brown background */
+    margin: 2em auto;
+  }
+
   .mainBox {
     width: 70%;
     padding: 5%;
@@ -18,16 +25,39 @@
     margin: 0;
     padding: 0;
   }
+
+  .chat-dark
+  {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .panel-footer-dark textarea {
+    background-color: #3A3E3D;
+    border: 1px solid #000;
+    color: #fff;
+  }
+
   .chat li
   {
     margin-bottom: 10px;
     padding-bottom: 5px;
     border-bottom: 1px dotted #B3A9A9;
   }
+
+  .chat-dark li
+  {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+  }
+
   .chat li.left .chat-body
   {
     margin-left: 60px;
   }
+
   .chat li.right .chat-body
   {
     margin-right: 60px;
@@ -38,6 +68,26 @@
     margin: 0;
     color: #777777;
   }
+
+  .chat-dark .chat-body p {
+    margin: 0;
+    color: #ffffff;
+  }
+
+  .chat-dark .chat-body .header .text-muted {
+    color: #E0EEEC;
+  }
+
+  .chat-dark li.left .chat-body
+  {
+    margin-left: 60px;
+  }
+
+  .chat-dark li.right .chat-body
+  {
+    margin-right: 60px;
+  }
+
   .panel .slidedown .glyphicon, .chat .glyphicon
   {
     margin-right: 5px;
@@ -47,16 +97,46 @@
     background-image: none;
   }
 
+  .panel .slidedown .glyphicon, .chat-dark .glyphicon
+  {
+    margin-right: 5px;
+  }
+
+  .panel-primary>.panel-heading-dark {
+    background-image: none;
+  }
+
   .panel-heading {
     background-color: #A0C1BC !important;
+  }
+
+  .panel-heading-dark {
+    background-color: #5E837E !important;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
   }
 
   .panel-body {
     background-color: #E4F3F1; /* Lighter Blue-Gray color */
   }
 
+  .panel-body-dark {
+    background-color: #3A3E3D; /* Dark gray background color */
+    padding: 15px;
+  }
+
   .panel-footer {
     background-color: #A0C1BC; /* Blue-Gray color */
+  }
+
+  .panel-footer-dark {
+    background-color: #5E837E; /* Blue-Gray color */
+    padding: 10px 15px;
+    border-top: 1px solid #000;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
   }
 
   .btn-warning {
@@ -77,6 +157,10 @@
     background-color: #FA6734;
     border: 1px solid #E4C44C; /* Yellow color */
     color: black;
+  }
+
+  .panel-primary {
+    border-color: #3A3E3D;
   }
 
   .body-panel

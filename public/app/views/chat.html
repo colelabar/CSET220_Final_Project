@@ -19,7 +19,7 @@
     <script src="../assets/chat.js"></script>
     <script type="text/javascript" src="../assets/purify.min.js"></script>
 </head>
-<body class="mainBody">
+<body id="body" class="mainBody">
   <video autoplay muted loop class="homeVideo">
     <source src="../assets/images/triangle-stock.mp4" type="video/mp4">
   </video>
@@ -27,7 +27,7 @@
     <div class="row form-group">
         <div class="mainBox">
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <div id="panel-heading" class="panel-heading">
                     <span class="glyphicon glyphicon-comment"></span> <span class="chatUsername" id="username"></span>
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -36,15 +36,17 @@
                         <ul class="dropdown-menu slidedown">
                             <li><a id="logout" class="buttonPointer"><span class="glyphicon glyphicon-off"></span>
                                 Sign Out</a></li>
+                            <li><a id="nightmode" class="buttonPointer"><span class="glyphicon glyphicon-lamp"></span>
+                                Dark Mode</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="panel-body body-panel">
+                <div id="panel-body" class="panel-body body-panel">
                     <ul class="chat" id="chat">
 
                     </ul>
                 </div>
-                <div class="panel-footer clearfix">
+                <div id="panel-footer" class="panel-footer clearfix">
                     <textarea id="message" class="form-control" rows="3"></textarea>
                     <span class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12" style="margin-top: 10px">
                         <button class="btn btn-warning btn-lg btn-block" id="btn-chat">SEND IT</button>
@@ -58,7 +60,7 @@
     </div>
 </div>
 <script id="new-message" type="text/template">
-        <div class="chat-body clearfix">
+        <div id="chat-body" class="chat-body clearfix">
             <div class="header">
                 <small class="text-muted">{{name}}</small>
             </div>
