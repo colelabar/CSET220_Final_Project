@@ -26,7 +26,7 @@ $(document).ready(function() {
     $('#chat').append(template);
 
     // fix to force auto-scrolling on new message send
-    $(".panel-body").stop().animate({ scrollTop: $(".panel-body")[0].scrollHeight}, 1000);
+    $("#panel-body").stop().animate({ scrollTop: $("#panel-body")[0].scrollHeight}, 1000);
   }
 
   // Subscribing the messaging user to the chat channel
@@ -76,9 +76,47 @@ $(document).ready(function() {
       logout();
     });
 
-    function logout(){
+    function logout() {
       localStorage.clear();
       try { window.location.replace('/'); }
       catch(err) { window.location = '/'; }
+    }
+
+    // functionality to enable night mode for users
+    $("#nightmode").click((e) => {
+      e.preventDefault();
+      nightmode();
+    });
+
+    function nightmode() {
+      if($('#body').hasClass('mainBody')) {
+        $('#body').removeClass('mainBody') && $('#body').addClass('mainBodyDark');
+      } else {
+        $('#body').removeClass('mainBodyDark') && $('#body').addClass('mainBody');
+      }
+
+      if($('#panel-heading').hasClass('panel-heading')) {
+        $('#panel-heading').removeClass('panel-heading') && $('#panel-heading').addClass('panel-heading-dark');
+      } else {
+        $('#panel-heading').removeClass('panel-heading-dark') && $('#panel-heading').addClass('panel-heading')
+      }
+
+      if($('#panel-body').hasClass('panel-body')) {
+        $('#panel-body').removeClass('panel-body') && $('#panel-body').addClass('panel-body-dark');
+      } else {
+        $('#panel-body').removeClass('panel-body-dark') && $('#panel-body').addClass('panel-body')
+      }
+
+      if($('#panel-footer').hasClass('panel-footer')) {
+        $('#panel-footer').removeClass('panel-footer') && $('#panel-footer').addClass('panel-footer-dark');
+      } else {
+        $('#panel-footer').removeClass('panel-footer-dark') && $('#panel-footer').addClass('panel-footer')
+      }
+
+      if($('#chat').hasClass('chat')) {
+        $('#chat').removeClass('chat') && $('#chat').addClass('chat-dark');
+      } else {
+        $('#chat').removeClass('chat-dark') && $('#chat').addClass('chat');
+      }
     }
 })
