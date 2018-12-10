@@ -50,6 +50,11 @@ This project, through its many iterations, was built using a variety of language
 
 5. Now that the administration portal existed, the time to create the visualization was upon me. Following the DALC found below, I made some database changes, included some more dependencies, and generated a chart of messages over time for the course of a 24-hour period. This visualization also included some more documentation in the form of my Database Descriptions to allow viewers or other devs to interrogate the structure of my database.
 
+## Testing
+----------
+
+This application uses Mocha and Chai for testing endpoints and routing. To run the tests, simply run `npm test`.
+
 ## Data Analysis Life Cycle
 ---------------------------
 

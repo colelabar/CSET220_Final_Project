@@ -139,3 +139,5 @@ app.get('*', function(req, res) {
   res.location('/');
   res.end();
 });
+
+module.exports = app.listen(8081);
