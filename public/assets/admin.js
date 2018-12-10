@@ -7,7 +7,6 @@ $(document).ready(function() {
     dataType: 'json',
     success: function (data,status,xhr) {  // success callback function maybe use a loop
       var i;
-      console.log(data);
       for(i = 0; i < data.length; i++) {
         if((data[i]['role'] > 2) && (data[i]['role'] < 8)) {
           // if the user is an admin or superadmin, display a crown next to their name

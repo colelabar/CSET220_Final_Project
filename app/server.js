@@ -13,6 +13,8 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   DOMpurify = require('dompurify');
 
+const rateLimit = require("express-rate-limit");
+
 
 
 // App related modules
@@ -44,6 +46,9 @@ app.use(favicon(__dirname + '/../favicon.ico'));
 
 // Hook up the HTTP logger
 app.use(morgan('dev'));
+
+// Allows for the use of the rate limiter
+app.enable("trust proxy");
 
 // Setup cookie parser
 app.use(cookieParser());
@@ -85,29 +90,36 @@ res.sendFile(path.join(__dirname + '../../public/app/views/403.html'));
 });
 
 app.post('/pusher/auth', function(req, res) {
-    var socketId = req.body.socket_id;
-    var channel = req.body.channel_name;
-    var auth = pusher.authenticate(socketId, channel);
-    res.send(auth);
-  });
+  var socketId = req.body.socket_id;
+  var channel = req.body.channel_name;
+  var auth = pusher.authenticate(socketId, channel);
+  res.send(auth);
+});
 
-  app.post('/message', function(req, res) {
-    var message = req.body.message;
-    var name = req.body.name;
-    var time = req.body.time;
-    pusher.trigger( 'private-chat', 'client-message-added', { message, name, time });
-    db.sync().then(function() {
-      var newMessage = {
-        username: name,
-        message: message
-      }
-      return Message.create(newMessage).then(function() {
-        res.sendStatus(200);
-      }).catch(function(error) {
-        res.status(403).json({ message: 'Hmm...something seems to have gone wrong' });
-      });
+  const messageLimiter = rateLimit({
+  windowMs: 15000, // 15 second window
+  max: 10, // start blocking after 10 requests
+  message:
+    "Don\'t spam the chat, cool off and try again in a bit"
+});
+
+app.post('/message', messageLimiter, function(req, res) {
+  var message = req.body.message;
+  var name = req.body.name;
+  var time = req.body.time;
+  pusher.trigger( 'private-chat', 'client-message-added', { message, name, time });
+  db.sync().then(function() {
+    var newMessage = {
+      username: name,
+      message: message
+    }
+    return Message.create(newMessage).then(function() {
+      res.sendStatus(200);
+    }).catch(function(error) {
+      res.status(403).json({ message: 'Hmm...something seems to have gone wrong' });
     });
   });
+});
 
 // Bundle API routes.
 app.use('/api', require('./routes/api')(passport));
@@ -139,3 +151,5 @@ app.get('*', function(req, res) {
   res.location('/');
   res.end();
 });
+
+module.exports = app.listen(8081);
