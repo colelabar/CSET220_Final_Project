@@ -29,6 +29,24 @@ $(document).ready(function() {
     $("#panel-body").stop().animate({ scrollTop: $("#panel-body")[0].scrollHeight}, 1000);
   }
 
+  // functionality to get all previous messages for chat window
+  $.ajax({
+    url:'/api/previousmessages',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data,status,xhr) {  // success callback function maybe use a loop
+      var n;
+      for(n = 0; n < data.length; n++) {
+        let template = $('#new-message').html();
+        template = template.replace('{{body}}', data[n]['message']);
+        template = template.replace('{{name}}', ('<strong>' + data[n]['username'] + '</strong> <em>@' + data[n]['createdAt'].slice(0,16) + '</em>'));
+
+        $('#chat').append(template);
+        $("#panel-body").stop().animate({ scrollTop: $("#panel-body")[0].scrollHeight}, 1000);
+      }
+    }
+  });
+
   // Subscribing the messaging user to the chat channel
 
   var channel = pusher.subscribe('private-chat');
