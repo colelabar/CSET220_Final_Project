@@ -30,6 +30,9 @@ On a successful login, the front-end calls out to the API with a request to get 
 **PUT /admin/userban**:
 When an admin clicks on the "Ban" button in the admin dashboard, the front-end makes an AJAX call that routes through the API. The API sends this to the back-end logic to changed the "isFlagged" field of the respective user row in the database.
 
+**PUT /admin/userunban**:
+When an admin clicks on the "Ban" button in the admin dashboard, the front-end makes an AJAX call that routes through the API. The API sends this to the back-end logic to changed the "isFlagged" field of the respective user row in the database.
+
 **PUT /admin/userpromote**:
 Similar to the ban endpoint. When an admin clicks on the "Role+" button in the admin dashboard, the front-end makes an AJAX call that routes through the API. The API sends this to the back-end logic to changed the "role" field of the respective user row in the database to match the required role of admin.
 

@@ -6,6 +6,7 @@ $(document).ready(function() {
   }).done(function (data, textStatus, xhr) {
     $('#username').append(xhr.getResponseHeader('username'));
     $('#un-housing').append(xhr.getResponseHeader('username'));
+    $('#if-housing').append(xhr.getResponseHeader('isFlagged'));
     if(xhr.getResponseHeader('role') > 2) {
       $('#btn-admin').removeClass('hidden');
     }
