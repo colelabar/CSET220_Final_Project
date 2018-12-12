@@ -5,6 +5,8 @@ $(document).ready(function() {
     url:'/api/chat'
   }).done(function (data, textStatus, xhr) {
     $('#username').append(xhr.getResponseHeader('username'));
+    $('#un-housing').append(xhr.getResponseHeader('username'));
+    $('#if-housing').append(xhr.getResponseHeader('isFlagged'));
     if(xhr.getResponseHeader('role') > 2) {
       $('#btn-admin').removeClass('hidden');
     }
@@ -21,7 +23,11 @@ $(document).ready(function() {
   function onMessageAdded(data) {
     let template = $('#new-message').html();
     template = template.replace('{{body}}', DOMPurify.sanitize(data.message));
-    template = template.replace('{{name}}', ('<strong>' + data.name + '</strong> <em>@' + data.time + '</em>'));
+    if($('#btn-admin').hasClass('hidden')) {
+      template = template.replace('{{name}}', ('<strong>' + data.name + '</strong> <em>on ' + data.time + '</em>'));
+    } else {
+      template = template.replace('{{name}}', ('<strong>' + '&#9819;' + ' ' + data.name + '</strong> <em>on ' + data.time + '</em>'));
+    }
 
     $('#chat').append(template);
 
@@ -39,7 +45,7 @@ $(document).ready(function() {
       for(n = 0; n < data.length; n++) {
         let template = $('#new-message').html();
         template = template.replace('{{body}}', data[n]['message']);
-        template = template.replace('{{name}}', ('<strong>' + data[n]['username'] + '</strong> <em>@' + data[n]['createdAt'].slice(0,16) + '</em>'));
+        template = template.replace('{{name}}', ('<strong>' + data[n]['username'] + '</strong> <em>on ' + data[n]['createdAt'].slice(0,10) + '@' + data[n]['createdAt'].slice(11,16) + ' UTC</em>'));
 
         $('#chat').append(template);
         $("#panel-body").stop().animate({ scrollTop: $("#panel-body")[0].scrollHeight}, 1000);
@@ -59,7 +65,7 @@ $(document).ready(function() {
     const cTime = new Date().toLocaleString();
     $('#message').val("");
       //send message
-    $.post( '/message', { message, name: $('#username').text(), time: cTime } );
+    $.post( '/message', { message, name: $('#un-housing').text(), time: cTime } );
   });
 
   // Extra functionality to allow message posting on "enter" press

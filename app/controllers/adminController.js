@@ -27,8 +27,23 @@ AdminController.banUser = function(req, res, next) {
   User.findOne(potentialUser).then(function(user){
     if (user) {
       user.update({
-        // need logic to unban
         isFlagged: 1
+      });
+      res.status(200).send(user);
+    }
+  }).catch(function(error) {
+    console.log(error);
+  })
+}
+
+// logic to ban a user
+AdminController.unbanUser = function(req, res, next) {
+  console.log(req.body)
+  var potentialUser = { where: { username: req.body.username } };
+  User.findOne(potentialUser).then(function(user){
+    if (user) {
+      user.update({
+        isFlagged: 0
       });
       res.status(200).send(user);
     }

@@ -65,6 +65,7 @@ AuthController.authenticateUser = function(req, res, next) {
             user.save().then(function(){
               res.cookie('auth_token', token);
               res.cookie('role', user.role);
+              res.cookie('isFlagged', user.isFlagged);
               return res.json({ user: User.toAuthJSON});
             }).catch(error);
             // res.status(200).send('Everything is alright');

@@ -11,7 +11,8 @@ var express = require('express'),
   cors = require('cors'),
   jwt = require('jsonwebtoken'),
   cookieParser = require('cookie-parser'),
-  DOMpurify = require('dompurify');
+  DOMpurify = require('dompurify'),
+  http = require('http');
 
 const rateLimit = require("express-rate-limit");
 
@@ -96,7 +97,8 @@ app.post('/pusher/auth', function(req, res) {
   res.send(auth);
 });
 
-  const messageLimiter = rateLimit({
+// functionality for the rate limiter
+const messageLimiter = rateLimit({
   windowMs: 15000, // 15 second window
   max: 10, // start blocking after 10 requests
   message:
@@ -121,7 +123,7 @@ app.post('/message', messageLimiter, function(req, res) {
   });
 });
 
-// Bundle API routes.
+// Bundle API routes
 app.use('/api', require('./routes/api')(passport));
 
 app.get('/api/chat', function(req, res) {

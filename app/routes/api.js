@@ -28,6 +28,8 @@ var APIRoutes = function(passport) {
 
   router.put('/admin/userban', AdminController.banUser);
 
+  router.put('/admin/userunban', AdminController.unbanUser);
+
   router.put('/admin/userpromote', AdminController.promoteUser);
 
   router.put('/admin/userdemote', AdminController.demoteUser);

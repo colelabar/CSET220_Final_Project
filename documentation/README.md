@@ -48,7 +48,9 @@ This project, through its many iterations, was built using a variety of language
 
 4. After the basic functionality and styling of the application was finalized and working (Read: Fully armed and operational battlestation), I felt it appropriate to begin working on the administration features for it. This included the creation of an admin dashboard and a more complex user role system based on the user model defined in Step 2. The administration portal allows a user (with admin privileges) to promote a user to admin, demote an admin to a standard user, and ban a user. I created a system of badges to clearly identify banned and admin users.
 
-5. Now that the administration portal existed, the time to create the visualization was upon me. Following the DALC found below, I made some database changes, included some more dependencies, and generated a chart of messages over time for the course of a 24-hour period. This visualization also included some more documentation in the form of my Database Descriptions to allow viewers or other devs to interrogate the structure of my database.
+5. Now that the administration portal existed, the time to create the visualization was upon me. Following the DALC found below, I made some database changes, included some more dependencies, and generated a chart of messages over time for the course of a 24-hour period. This section of changes also included some more documentation in the form of my Database Descriptions to allow viewers or other devs to interrogate the structure of my database.
+
+6. With the completion of critical functionality and features, the end of the project was near. With the final deadline looming in the distance, I began running through my list of "nice-to-have" features. This included the creation of a "dark mode" for lower-light level conditions to reduce eye strain for users of the system. I fixed some vulnerabilities related to user identities, provided admins with the ability to "unban" a user once they were banned, and adjusted some styles for the application as a whole.
 
 ## Testing
 ----------
