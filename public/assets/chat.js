@@ -23,11 +23,7 @@ $(document).ready(function() {
   function onMessageAdded(data) {
     let template = $('#new-message').html();
     template = template.replace('{{body}}', DOMPurify.sanitize(data.message));
-    if($('#btn-admin').hasClass('hidden')) {
-      template = template.replace('{{name}}', ('<strong>' + data.name + '</strong> <em>on ' + data.time + '</em>'));
-    } else {
-      template = template.replace('{{name}}', ('<strong>' + '&#9819;' + ' ' + data.name + '</strong> <em>on ' + data.time + '</em>'));
-    }
+    template = template.replace('{{name}}', ('<strong>' + data.name + '</strong> <em>on ' + data.time + '</em>'));
 
     $('#chat').append(template);
 
