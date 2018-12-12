@@ -2,6 +2,7 @@
   width: 94%;
   padding: 1% 3% 3%;
   background-color: #8A5C35; /* brown background */
+  height: auto;
 }
 
 .homeVideo {
@@ -54,6 +55,14 @@
   border-bottom: 2px black solid;
 }
 
+.highlighter {
+  font-size: 24px !important;
+  font-family: 'Righteous', cursive;
+  display: inline;
+  color: #D5A33E; /* Gold color */
+  text-shadow: 0 0 3px #000000;
+}
+
 .formContainer {
   display: block;
   width: 60%;
@@ -104,12 +113,17 @@
   background-color: #f7f7f7; /* Gray color */
   padding-left: 4px;
   margin: 10px 0;
+  border: 2px solid #8A5C35;
 }
 
 .submitCon {
   width: 100%;
   display: flex;
   align-items: center;
+}
+
+#message {
+  border: 1px solid #8A5C35;
 }
 
 .homeButtonCon {
@@ -150,8 +164,7 @@
 
 .adminButtonCon {
   width: 40%;
-  display: flex;
-  justify-content: space-around;
+  display: inline-block;
 }
 
 .adminButton-Ban {
@@ -165,6 +178,22 @@
   border-radius: 5px;
   color: black;
   text-decoration: none;
+  width: 100px;
+  margin-right: 1em;
+}
+
+.adminButton-UnBan {
+  font-size: 25px;
+  font-family: 'Righteous', sans-serif;
+  height: 40px;
+  padding: 2px;
+  background-color: #E6853D; /* Orange-ish color */
+  background-image: linear-gradient(to bottom,#E6853D 0,#FA6734 100%);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  width: 100px;
 }
 
 .adminButton-Promote {
@@ -179,6 +208,8 @@
   color: black;
   text-decoration: none;
   margin-right: 1em;
+  margin-bottom: 1em;
+  width: 100px;
 }
 
 .adminButton-Demote {
@@ -192,10 +223,18 @@
   border-radius: 5px;
   color: black;
   text-decoration: none;
-  margin-right: 1em;
+  width: 100px;
+  margin-bottom: 1em;
 }
 
 .adminButton-Ban:hover {
+  cursor: pointer;
+  background-color: #E4C44C; /* Yellow color */
+  background-image: none;
+  border: 1px solid #E6853D;
+}
+
+.adminButton-UnBan:hover {
   cursor: pointer;
   background-color: #E4C44C; /* Yellow color */
   background-image: none;
@@ -358,7 +397,7 @@
 }
 
 .userInfoCon {
-  width: 100%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -379,14 +418,21 @@
   .adminButton-Ban {
     font-size: 20px;
     height: 35px;
+    margin-bottom: none;
+  }
+  .adminButton-UnBan {
+    font-size: 20px;
+    height: 35px;
   }
   .adminButton-Promote {
     font-size: 20px;
     height: 35px;
+    margin-bottom: 0;
   }
   .adminButton-Demote {
     font-size: 20px;
     height: 35px;
+    margin-bottom: 0;
   }
   .userInfo {
     font-size: 15px !important;
@@ -429,6 +475,22 @@
       padding-bottom: 10px;
       display: block;
     }
+    .userInfoCon {
+      width: 100%;
+      text-align: center;
+    }
+    .adminButton-Ban {
+      margin-right: 0;
+    }
+    .adminButton-UnBan {
+      margin-right: 0;
+    }
+    .adminButton-Promote {
+      margin-right: 0;
+    }
+    .adminButton-Demote {
+      margin-right: 0;
+    }
     .userInfo {
       font-size: 20px !important;
       text-align: center;
@@ -447,6 +509,7 @@
     }
     .adminButtonCon {
       margin: 0 auto;
+      width: 100%;
     }
   }
 
@@ -456,18 +519,28 @@
       height: 25px;
       width: 100px;
       margin-bottom: 5px;
+      margin-right: 0;
+    }
+    .adminButton-UnBan {
+      font-size: 15px;
+      height: 25px;
+      width: 100px;
+      margin-bottom: 5px;
+      margin-right: 0;
     }
     .adminButton-Promote {
       font-size: 15px;
       height: 25px;
       width: 100px;
       margin-bottom: 5px;
+      margin-right: 0;
     }
     .adminButton-Demote {
       font-size: 15px;
       height: 25px;
       width: 100px;
       margin-bottom: 5px;
+      margin-right: 0;
     }
     .adminButtonCon {
       width: 30%;
@@ -481,6 +554,10 @@
       margin-top: 10px;
       padding-bottom: 10px;
       display: block;
+    }
+    .userInfoCon {
+      width: 100%;
+      text-align: center;
     }
     .userInfo {
       font-size: 15px !important;

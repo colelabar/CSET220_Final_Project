@@ -125,10 +125,13 @@
   .panel-body-dark {
     background-color: #3A3E3D; /* Dark gray background color */
     padding: 15px;
+    border-left: 1px solid #000;
+    border-top: 1px solid #000;
   }
 
   .panel-footer {
     background-color: #A0C1BC; /* Blue-Gray color */
+    border-top: 1px solid #000;
   }
 
   .panel-footer-dark {
